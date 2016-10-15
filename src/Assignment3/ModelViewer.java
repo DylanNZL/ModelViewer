@@ -334,11 +334,10 @@ public class ModelViewer {
   }
 
   public static void main(String[] args) {
-    System.out.println("-------------------------------------");
-    System.out.println("159.235 Assignment 3, Semester 2 2016");
-    System.out.println("Submitted by: Mouse, Mickey, 12345678");
-    System.out.println("          and Mouse, Minnie, 98765432");
-    System.out.println("-------------------------------------");
+    System.out.println("*****************************************");
+    System.out.println("* 159.235 Assignment 2, Semester 2 2016 *");
+    System.out.println("* Submitted by:  Cross, Dylan, 15219491 *");
+    System.out.println("*****************************************");
 
     ModelViewer.create();
   }
