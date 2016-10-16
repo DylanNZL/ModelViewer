@@ -55,10 +55,13 @@ public class ModelViewer {
       if (m_currentModel != null) {
         if (source == m_sliderRotateX) {
           // TODO
+          System.out.println("RotateX");
         } else if (source == m_sliderRotateY) {
           // TODO
+          System.out.println("RotateY");
         } else if (source == m_sliderRotateZ) {
           // TODO
+          System.out.println("RotateZ");
         }
       }
     }
@@ -73,22 +76,30 @@ public class ModelViewer {
         // scale changes
         if (source == m_btnScaleUp) {
           // TODO
+          System.out.println("Scale Up");
         } else if (source == m_btnScaleDown) {
           // TODO
+          System.out.println("Scale Down");
         }
         // translation changes
         else if (source == m_btnIncrX) {
           // TODO
+          System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
           // TODO
+          System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
           // TODO
+          System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
           // TODO
+          System.out.println("DecrY");
         } else if (source == m_btnIncrZ) {
           // TODO
+          System.out.println("IncrZ");
         } else if (source == m_btnDecrZ) {
           // TODO
+          System.out.println("DecrZ");
         }
       }
     }
@@ -101,10 +112,13 @@ public class ModelViewer {
       final Object source = e.getSource();
       if (source == m_chkRenderWireframe) {
         // TODO
+        System.out.println("RenderWireframe");
       } else if (source == m_chkRenderSolid) {
         // TODO
+        System.out.println("RenderSolid");
       } else if (source == m_chkCullBackFaces) {
         // TODO
+        System.out.println("BackFaces");
       }
     }
   };
@@ -118,6 +132,7 @@ public class ModelViewer {
         if (model != null) {
           m_currentModel = model;
           m_canvas.setModel(model);
+          m_canvas.update();
         }
       }
     }
@@ -352,7 +367,8 @@ class Model {
   private int m_numVertices;
   private int m_numTriangles;
   private ArrayList<Vector3f> Vectors = new ArrayList<>();
-  private ArrayList<Triangle> Triangles = new ArrayList<>();
+  private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
+  private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
 
   // the largest absolute coordinate value of the untransformed model data
@@ -460,6 +476,12 @@ class Model {
   public float getMaxSize() {
     return m_maxSize;
   }
+
+  public ArrayList<Triangle> getTriangles() {
+    return Triangles;
+    // TODO: Change to transformed once that is implemented
+    //return Transformed;
+  }
 }
 
 /**
@@ -479,12 +501,51 @@ class Canvas extends JPanel {
     m_model = model;
   }
 
+  public void update() {
+    this.repaint();
+  }
+
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-
     if (m_model == null) return;
 
     // TODO render the model
+
+    final ArrayList<Triangle> triangles = m_model.getTriangles();
+    if (triangles == null || triangles.size() == 0) return;
+
+    Graphics2D g2 = (Graphics2D) g.create();
+    // Set AA on
+    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+    // Move the origin to the center of the canvas and flip the y-axis.
+    g2.translate(getWidth() / 2., getHeight() / 2.);
+    g2.scale(1., -1.);
+
+    final Polygon poly = new Polygon(new int[3], new int[3], 3);
+    for (final Triangle triangle : triangles) {
+      //if (/*cullBackFaces && */triangle.normal.z <= 0.f) continue;
+
+      poly.xpoints[0] = (int) triangle.v[0].x;
+      poly.xpoints[1] = (int) triangle.v[1].x;
+      poly.xpoints[2] = (int) triangle.v[2].x;
+      poly.ypoints[0] = (int) triangle.v[0].y;
+      poly.ypoints[1] = (int) triangle.v[1].y;
+      poly.ypoints[2] = (int) triangle.v[2].y;
+
+      g2.setPaint(Color.BLUE);
+      g2.fill(poly);
+
+      g2.setPaint(Color.BLACK);
+      g2.draw(poly);
+
+      // wireframe
+      /*if (renderWireframe) {
+        g2.setPaint(Color.BLACK);
+        g2.draw(poly);
+      }*/
+    }
+    g2.dispose();
   }
 }
