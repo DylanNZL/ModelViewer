@@ -54,13 +54,13 @@ public class ModelViewer {
       final JSlider source = (JSlider) e.getSource();
       if (m_currentModel != null) {
         if (source == m_sliderRotateX) {
-          // TODO
+          // TODO rotate x
           System.out.println("RotateX");
         } else if (source == m_sliderRotateY) {
-          // TODO
+          // TODO rotate x
           System.out.println("RotateY");
         } else if (source == m_sliderRotateZ) {
-          // TODO
+          // TODO rotate z
           System.out.println("RotateZ");
         }
       }
@@ -75,30 +75,30 @@ public class ModelViewer {
       if (m_currentModel != null) {
         // scale changes
         if (source == m_btnScaleUp) {
-          // TODO
+          // TODO scale up
           System.out.println("Scale Up");
         } else if (source == m_btnScaleDown) {
-          // TODO
+          // TODO scale down
           System.out.println("Scale Down");
         }
         // translation changes
         else if (source == m_btnIncrX) {
-          // TODO
+          // TODO increase x
           System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
-          // TODO
+          // TODO decrease x
           System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
-          // TODO
+          // TODO increase y
           System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
-          // TODO
+          // TODO decrease y
           System.out.println("DecrY");
         } else if (source == m_btnIncrZ) {
-          // TODO
+          // TODO increase z
           System.out.println("IncrZ");
         } else if (source == m_btnDecrZ) {
-          // TODO
+          // TODO decrease z
           System.out.println("DecrZ");
         }
       }
@@ -111,13 +111,13 @@ public class ModelViewer {
     public void actionPerformed(ActionEvent e) {
       final Object source = e.getSource();
       if (source == m_chkRenderWireframe) {
-        // TODO
+        // TODO render wirefram checked/unchecked
         System.out.println("RenderWireframe");
       } else if (source == m_chkRenderSolid) {
-        // TODO
+        // TODO render solid checked/unchecked
         System.out.println("RenderSolid");
       } else if (source == m_chkCullBackFaces) {
-        // TODO
+        // TODO Cull backfaces checked/unchecked
         System.out.println("BackFaces");
       }
     }
@@ -340,7 +340,8 @@ public class ModelViewer {
       if (model != null) {
         // initialise the scale value so that the model fits into the
         // render window
-        // TODO
+        // TODO scale
+
       }
 
       return model;
@@ -369,6 +370,7 @@ class Model {
   private ArrayList<Vector3f> Vectors = new ArrayList<>();
   private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
   private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
+  private int m_scale = 0;
 
 
   // the largest absolute coordinate value of the untransformed model data
