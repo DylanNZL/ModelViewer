@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -335,7 +336,7 @@ public class ModelViewer {
 
   public static void main(String[] args) {
     System.out.println("*****************************************");
-    System.out.println("* 159.235 Assignment 2, Semester 2 2016 *");
+    System.out.println("* 159.235 Assignment 3, Semester 2 2016 *");
     System.out.println("* Submitted by:  Cross, Dylan, 15219491 *");
     System.out.println("*****************************************");
 
@@ -350,6 +351,9 @@ class Model {
 
   private int m_numVertices;
   private int m_numTriangles;
+  private ArrayList<Vector3f> Vectors = new ArrayList<>();
+  private ArrayList<Triangle> Triangles = new ArrayList<>();
+
 
   // the largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
@@ -398,7 +402,8 @@ class Model {
         y = scanner.nextFloat();
         z = scanner.nextFloat();
 
-        // TODO store the vertex data
+        // store the vertex data
+        Vectors.add(new Vector3f(x, y, z));
 
         // determine the max value in any dimension in the model file
         m_maxSize = Math.max(m_maxSize, Math.abs(x));
@@ -421,7 +426,12 @@ class Model {
         v2 = scanner.nextInt() - 1;
         v3 = scanner.nextInt() - 1;
 
-        // TODO store the triangle data in a suitable data structure
+        // store the triangle data in a suitable data structure
+        Triangles.add(new Triangle (
+                new Vector4f(Vectors.get(v1)),
+                new Vector4f(Vectors.get(v2)),
+                new Vector4f(Vectors.get(v3))
+        ));
       }
     } catch (FileNotFoundException e) {
       System.err.println("No such file " + file.toString() + ": "
