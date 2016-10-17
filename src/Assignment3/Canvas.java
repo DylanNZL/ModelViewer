@@ -48,10 +48,6 @@ class Canvas extends JPanel {
     backFace = update;
   }
 
-  public void update() {
-    this.repaint();
-  }
-
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);

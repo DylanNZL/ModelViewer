@@ -139,7 +139,7 @@ public class ModelViewer {
         if (model != null) {
           m_currentModel = model;
           m_canvas.setModel(model);
-          m_canvas.update();
+          m_canvas.repaint();
         }
       }
     }
