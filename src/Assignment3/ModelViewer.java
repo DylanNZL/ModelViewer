@@ -11,10 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+
 
 public class ModelViewer {
 
@@ -115,13 +112,19 @@ public class ModelViewer {
     public void actionPerformed(ActionEvent e) {
       final Object source = e.getSource();
       if (source == m_chkRenderWireframe) {
-        // TODO render wirefram checked/unchecked
+        // TODO render wireframe checked/unchecked
+        m_canvas.updateWireframe(m_chkRenderWireframe.isSelected());
+        m_canvas.repaint();
         System.out.println("RenderWireframe");
       } else if (source == m_chkRenderSolid) {
         // TODO render solid checked/unchecked
+        m_canvas.updateSolid(m_chkRenderSolid.isSelected());
+        m_canvas.repaint();
         System.out.println("RenderSolid");
       } else if (source == m_chkCullBackFaces) {
         // TODO Cull backfaces checked/unchecked
+        m_canvas.updateBackFace(m_chkCullBackFaces.isSelected());
+        m_canvas.repaint();
         System.out.println("BackFaces");
       }
     }

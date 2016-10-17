@@ -13,7 +13,12 @@ class Canvas extends JPanel {
 
   private Model m_model;
 
+  // Controller variables, changed by the GUI
   private double scale = 10;
+  private boolean wireFrame = true;
+  private boolean solid = true;
+  private boolean backFace = true;
+
 
   public Canvas() {
     setOpaque(true);
@@ -23,9 +28,25 @@ class Canvas extends JPanel {
     m_model = model;
   }
 
-  public void incrementScale() { scale = scale * 1.1; }
+  public void incrementScale() {
+    scale = scale * 1.1;
+  }
 
-  public void decrementScale() { scale = scale * 0.9; }
+  public void decrementScale() {
+    scale = scale * 0.9;
+  }
+
+  public void updateWireframe(boolean update) {
+    wireFrame = update;
+  }
+
+  public void updateSolid(boolean update) {
+    solid = update;
+  }
+
+  public void updateBackFace(boolean update) {
+    backFace = update;
+  }
 
   public void update() {
     this.repaint();
@@ -51,7 +72,7 @@ class Canvas extends JPanel {
 
     final Polygon poly = new Polygon(new int[3], new int[3], 3);
     for (final Triangle triangle : triangles) {
-      //if (/*cullBackFaces && */triangle.normal.z <= 0.f) continue;
+      //if (backFace && triangle.normal.z <= 0.f) continue;
 
       poly.xpoints[0] = (int) triangle.v[0].x * (int) scale;
       poly.xpoints[1] = (int) triangle.v[1].x * (int) scale;
@@ -60,17 +81,17 @@ class Canvas extends JPanel {
       poly.ypoints[1] = (int) triangle.v[1].y * (int) scale;
       poly.ypoints[2] = (int) triangle.v[2].y * (int) scale;
 
-      g2.setPaint(Color.BLUE);
-      g2.fill(poly);
+      // if render solids is true, fill the polygon
+      if (solid) {
+        g2.setPaint(Color.BLUE);
+        g2.fill(poly);
+      }
 
-      //g2.setPaint(Color.BLACK);
-      //g2.draw(poly);
-
-      // wireframe
-      /*if (renderWireframe) {
+      // if render wireframe is true, draw a black
+      if (wireFrame) {
         g2.setPaint(Color.BLACK);
         g2.draw(poly);
-      }*/
+      }
     }
     g2.dispose();
   }
