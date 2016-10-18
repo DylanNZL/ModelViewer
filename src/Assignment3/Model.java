@@ -22,6 +22,11 @@ class Model {
   private float offsetY = 0;
   private float offsetZ = 0;
 
+  // Rotates
+  private int rotateX = 0;
+  private int rotateY = 0;
+  private int rotateZ = 0;
+
   // the largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
 
@@ -150,6 +155,24 @@ class Model {
     // TODO: Change to transformed once that is implemented
     return Transformed;
   }
+
+  /**
+   * Rotate updaters
+   *
+   */
+
+  public void setRotateX(int mRotateX) {
+    rotateX = mRotateX;
+  }
+
+  public void setRotateY(int mRotateY) {
+    rotateY = mRotateY;
+  }
+
+  public void setRotateZ(int mRotateZ) {
+    rotateZ = mRotateZ;
+  }
+
 
   /**
    * Offset Value increase/Decrease functions
