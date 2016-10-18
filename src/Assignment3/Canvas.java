@@ -14,7 +14,7 @@ class Canvas extends JPanel {
   private Model m_model;
 
   // Controller variables, changed by the GUI
-  private double scale = 10;
+  private double scale = 50;
   private boolean wireFrame = true;
   private boolean solid = true;
   private boolean backFace = true;
@@ -64,18 +64,18 @@ class Canvas extends JPanel {
 
     // Move the origin to the center of the canvas and flip the y-axis.
     g2.translate(getWidth() / 2., getHeight() / 2.);
-    g2.scale(scale, 0-scale);
+    g2.scale(1, -1);
 
     final Polygon poly = new Polygon(new int[3], new int[3], 3);
     for (final Triangle triangle : triangles) {
       if (backFace && triangle.normal.z <= 0.f) continue;
 
-      poly.xpoints[0] = (int) triangle.v[0].x * (int) scale;
-      poly.xpoints[1] = (int) triangle.v[1].x * (int) scale;
-      poly.xpoints[2] = (int) triangle.v[2].x * (int) scale;
-      poly.ypoints[0] = (int) triangle.v[0].y * (int) scale;
-      poly.ypoints[1] = (int) triangle.v[1].y * (int) scale;
-      poly.ypoints[2] = (int) triangle.v[2].y * (int) scale;
+      poly.xpoints[0] = (int) (triangle.v[0].x * scale);
+      poly.xpoints[1] = (int) (triangle.v[1].x * scale);
+      poly.xpoints[2] = (int) (triangle.v[2].x * scale);
+      poly.ypoints[0] = (int) (triangle.v[0].y * scale);
+      poly.ypoints[1] = (int) (triangle.v[1].y * scale);
+      poly.ypoints[2] = (int) (triangle.v[2].y * scale);
 
       // if render solids is true, fill the polygon
       if (solid) {
