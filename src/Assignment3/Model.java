@@ -17,6 +17,11 @@ class Model {
   private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
   private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
+  // Offsets
+  private int offsetX = 0;
+  private int offsetY = 0;
+  private int offsetZ = 0;
+
   // the largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
 
@@ -131,5 +136,35 @@ class Model {
     return Triangles;
     // TODO: Change to transformed once that is implemented
     //return Transformed;
+  }
+
+  // Increase the X offset of the vertices in the triangle(s) by 10
+  public void increaseX() {
+    offsetX += 10;
+  }
+
+  // Increase the Y offset of the vertices in the triangle(s) by 10
+  public void increaseY() {
+    offsetY += 10;
+  }
+
+  // Increase the Z offset of the vertices in the triangle(s) by 10
+  public void increaseZ() {
+    offsetZ += 10;
+  }
+
+  // Decrease the X offset of the vertices in the triangle(s) by 10
+  public void decreaseX () {
+    offsetX -= 10;
+  }
+
+  // Decrease the Y offset of the vertices in the triangle(s) by 10
+  public void decreaseY () {
+    offsetY -= 10;
+  }
+
+  // Decrease the Z offset of the vertices in the triangle(s) by 10
+  public void decreaseZ() {
+    offsetZ -= 10;
   }
 }
