@@ -120,15 +120,12 @@ public class ModelViewer {
       if (source == m_chkRenderWireframe) {
         m_canvas.updateWireframe(m_chkRenderWireframe.isSelected());
         m_canvas.repaint();
-        System.out.println("RenderWireframe");
       } else if (source == m_chkRenderSolid) {
         m_canvas.updateSolid(m_chkRenderSolid.isSelected());
         m_canvas.repaint();
-        System.out.println("RenderSolid");
       } else if (source == m_chkCullBackFaces) {
         m_canvas.updateBackFace(m_chkCullBackFaces.isSelected());
         m_canvas.repaint();
-        System.out.println("BackFaces");
       }
     }
   };
