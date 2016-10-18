@@ -148,14 +148,17 @@ class Model {
 
       if (rotateX != 0) {
         // pass triangle to rotateX function
+        triangle = rotateXTransform(triangle);
       }
 
       if (rotateY != 0) {
         // pass triangle to rotateY function
+        triangle = rotateYTransform(triangle);
       }
 
       if (rotateZ != 0) {
         // pass triangle to rotateZ function
+        triangle = rotateZTransform(triangle);
       }
 
       add.calculateNormal();
@@ -164,8 +167,6 @@ class Model {
   }
 
   ArrayList<Triangle> getTriangles() {
-    //return Triangles;
-    // TODO: Change to transformed once that is implemented
     return Transformed;
   }
 
@@ -174,14 +175,17 @@ class Model {
    */
 
   void setRotateX(int mRotateX) {
+    // TODO : rotate the triangle
     rotateX = mRotateX;
   }
 
   void setRotateY(int mRotateY) {
+    // TODO : rotate the triangle
     rotateY = mRotateY;
   }
 
   void setRotateZ(int mRotateZ) {
+    // TODO : rotate the triangle
     rotateZ = mRotateZ;
   }
 
