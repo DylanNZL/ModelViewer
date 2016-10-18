@@ -26,7 +26,7 @@ class Canvas extends JPanel {
     setOpaque(true);
   }
 
-  void setScale() {
+  private void setScale() {
     if (getHeight() < getWidth()) {
       scale = (getHeight() / 2) / m_model.getMaxSize();
     } else {

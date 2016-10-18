@@ -151,7 +151,7 @@ public class ModelViewer {
   /**
    * Factory method for {@link ModelViewer}.
    */
-  public static ModelViewer create() {
+  private static ModelViewer create() {
     final ModelViewer viewer = new ModelViewer();
     SwingUtilities.invokeLater(viewer::createGui);
     return viewer;

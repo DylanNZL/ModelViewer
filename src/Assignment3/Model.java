@@ -39,7 +39,7 @@ class Model {
    * @param file The file to load.
    * @return The {@link Model}, or null if an error occurred.
    */
-  public static Model loadModel(final File file) {
+  static Model loadModel(final File file) {
     final Model model = new Model();
 
     // read the data from the file
