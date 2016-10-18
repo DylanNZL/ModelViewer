@@ -52,12 +52,15 @@ public class ModelViewer {
       if (m_currentModel != null) {
         if (source == m_sliderRotateX) {
           // TODO rotate x
+          m_canvas.repaint();
           System.out.println("RotateX");
         } else if (source == m_sliderRotateY) {
           // TODO rotate x
+          m_canvas.repaint();
           System.out.println("RotateY");
         } else if (source == m_sliderRotateZ) {
           // TODO rotate z
+          m_canvas.repaint();
           System.out.println("RotateZ");
         }
       }
@@ -85,21 +88,27 @@ public class ModelViewer {
         // translation changes
         else if (source == m_btnIncrX) {
           // TODO increase x
+          m_canvas.repaint();
           System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
           // TODO decrease x
+          m_canvas.repaint();
           System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
           // TODO increase y
+          m_canvas.repaint();
           System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
           // TODO decrease y
+          m_canvas.repaint();
           System.out.println("DecrY");
         } else if (source == m_btnIncrZ) {
           // TODO increase z
+          m_canvas.repaint();
           System.out.println("IncrZ");
         } else if (source == m_btnDecrZ) {
           // TODO decrease z
+          m_canvas.repaint();
           System.out.println("DecrZ");
         }
       }
