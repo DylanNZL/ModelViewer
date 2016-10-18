@@ -52,16 +52,19 @@ public class ModelViewer {
       if (m_currentModel != null) {
         if (source == m_sliderRotateX) {
           // TODO rotate x
+          m_currentModel.setRotateX(m_sliderRotateX.getValue());
           m_canvas.repaint();
-          System.out.println("RotateX");
+          //System.out.println("RotateX " + m_sliderRotateX.getValue());
         } else if (source == m_sliderRotateY) {
           // TODO rotate x
+          m_currentModel.setRotateY(m_sliderRotateY.getValue());
           m_canvas.repaint();
-          System.out.println("RotateY");
+          //System.out.println("RotateY " + m_sliderRotateY.getValue());
         } else if (source == m_sliderRotateZ) {
           // TODO rotate z
+          m_currentModel.setRotateZ(m_sliderRotateY.getValue());
           m_canvas.repaint();
-          System.out.println("RotateZ");
+          //System.out.println("RotateZ " + m_sliderRotateZ.getValue());
         }
       }
     }
@@ -77,29 +80,23 @@ public class ModelViewer {
         if (source == m_btnScaleUp) {
           m_canvas.incrementScale();
           m_canvas.repaint();
-          System.out.println("Scale Up");
         } else if (source == m_btnScaleDown) {
           m_canvas.decrementScale();
           m_canvas.repaint();
-          System.out.println("Scale Down");
         }
         // translation changes
         else if (source == m_btnIncrX) {
           m_currentModel.increaseX();
           m_canvas.repaint();
-          System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
           m_currentModel.decreaseX();
           m_canvas.repaint();
-          System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
           m_currentModel.increaseY();
           m_canvas.repaint();
-          System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
           m_currentModel.decreaseY();
           m_canvas.repaint();
-          System.out.println("DecrY");
         } else if (source == m_btnIncrZ) {
           // TODO increase z
           m_currentModel.increaseZ();
