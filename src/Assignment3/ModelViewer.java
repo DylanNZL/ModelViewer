@@ -347,7 +347,7 @@ public class ModelViewer {
         // initialise the scale value so that the model fits into the
         // render window
         // TODO scale
-
+        m_canvas.setFirstToTrue();
       }
       return model;
     }

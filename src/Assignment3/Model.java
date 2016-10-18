@@ -125,6 +125,7 @@ class Model {
     for (Triangle Triangle : Triangles) {
       Triangle.calculateNormal();
     }
+
     newTransforms();
     return true;
   }
@@ -165,6 +166,10 @@ class Model {
       Transformed.add(add);
     }
   }
+
+  /**
+   * Return the transformed Arraylist of the triangles that have been read in.
+   */
 
   ArrayList<Triangle> getTriangles() {
     return Transformed;
@@ -212,8 +217,8 @@ class Model {
   }
 
   /**
-   * Offset Value increase/Decrease functions
-   * Increment & Decrement in values of .5 as the scale defaults to 50 which means this will move it 25 pixels
+   * Offset Value Increase/Decrease functions
+   * Increment & Decrement in values of .5 as the scale defaults to is usually quite big
    */
 
   // Increase the X offset of the vertices in the triangle(s) by 10

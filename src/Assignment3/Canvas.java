@@ -14,37 +14,52 @@ class Canvas extends JPanel {
   private Model m_model;
 
   // Controller variables, changed by the GUI
-  private double scale = 50;
+  private float scale = 50.f;
   private boolean wireFrame = true;
   private boolean solid = true;
   private boolean backFace = true;
 
+  // Boolean to check if this is the first time loading an image
+  private boolean first = true;
 
-  public Canvas() {
+  Canvas() {
     setOpaque(true);
   }
 
-  public void setModel(final Model model) {
+  void setScale() {
+    if (getHeight() < getWidth()) {
+      scale = (getHeight() / 2) / m_model.getMaxSize();
+    } else {
+      scale = (getWidth() / 2) / m_model.getMaxSize();
+    }
+    System.out.println(scale);
+  }
+
+  void setFirstToTrue() {
+    first = true;
+  }
+
+  void setModel(final Model model) {
     m_model = model;
   }
 
-  public void incrementScale() {
-    scale = scale * 1.1;
+  void incrementScale() {
+    scale = scale * 1.1f;
   }
 
-  public void decrementScale() {
-    scale = scale * 0.9;
+  void decrementScale() {
+    scale = scale * 0.9f;
   }
 
-  public void updateWireframe(boolean update) {
+  void updateWireframe(boolean update) {
     wireFrame = update;
   }
 
-  public void updateSolid(boolean update) {
+  void updateSolid(boolean update) {
     solid = update;
   }
 
-  public void updateBackFace(boolean update) {
+  void updateBackFace(boolean update) {
     backFace = update;
   }
 
@@ -52,6 +67,11 @@ class Canvas extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     if (m_model == null) return;
+
+    if (first) {
+      setScale();
+      first = false;
+    }
 
     final ArrayList<Triangle> triangles = m_model.getTriangles();
     if (triangles == null || triangles.size() == 0) return;
