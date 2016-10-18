@@ -53,8 +53,6 @@ class Canvas extends JPanel {
     super.paintComponent(g);
     if (m_model == null) return;
 
-    // TODO render the model
-
     final ArrayList<Triangle> triangles = m_model.getTriangles();
     if (triangles == null || triangles.size() == 0) return;
 
