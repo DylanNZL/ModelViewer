@@ -75,34 +75,28 @@ public class ModelViewer {
       if (m_currentModel != null) {
         // scale changes
         if (source == m_btnScaleUp) {
-          // TODO scale up
           m_canvas.incrementScale();
           m_canvas.repaint();
           System.out.println("Scale Up");
         } else if (source == m_btnScaleDown) {
-          // TODO scale down
           m_canvas.decrementScale();
           m_canvas.repaint();
           System.out.println("Scale Down");
         }
         // translation changes
         else if (source == m_btnIncrX) {
-          // TODO increase x
           m_currentModel.increaseX();
           m_canvas.repaint();
           System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
-          // TODO decrease x
           m_currentModel.decreaseX();
           m_canvas.repaint();
           System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
-          // TODO increase y
           m_currentModel.increaseY();
           m_canvas.repaint();
           System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
-          // TODO decrease y
           m_currentModel.decreaseY();
           m_canvas.repaint();
           System.out.println("DecrY");
@@ -127,17 +121,14 @@ public class ModelViewer {
     public void actionPerformed(ActionEvent e) {
       final Object source = e.getSource();
       if (source == m_chkRenderWireframe) {
-        // TODO render wireframe checked/unchecked
         m_canvas.updateWireframe(m_chkRenderWireframe.isSelected());
         m_canvas.repaint();
         System.out.println("RenderWireframe");
       } else if (source == m_chkRenderSolid) {
-        // TODO render solid checked/unchecked
         m_canvas.updateSolid(m_chkRenderSolid.isSelected());
         m_canvas.repaint();
         System.out.println("RenderSolid");
       } else if (source == m_chkCullBackFaces) {
-        // TODO Cull backfaces checked/unchecked
         m_canvas.updateBackFace(m_chkCullBackFaces.isSelected());
         m_canvas.repaint();
         System.out.println("BackFaces");
