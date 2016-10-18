@@ -68,7 +68,7 @@ class Canvas extends JPanel {
 
     final Polygon poly = new Polygon(new int[3], new int[3], 3);
     for (final Triangle triangle : triangles) {
-      //if (backFace && triangle.normal.z <= 0.f) continue;
+      if (backFace && triangle.normal.z <= 0.f) continue;
 
       poly.xpoints[0] = (int) triangle.v[0].x * (int) scale;
       poly.xpoints[1] = (int) triangle.v[1].x * (int) scale;

@@ -112,6 +112,10 @@ class Model {
     System.out.println("Number of vertices in model: " + m_numVertices);
     System.out.println("Number of triangles in model: " + m_numTriangles);
 
+    for (Triangle Triangle : Triangles) {
+      Triangle.calculateNormal();
+    }
+
     return true;
   }
 
