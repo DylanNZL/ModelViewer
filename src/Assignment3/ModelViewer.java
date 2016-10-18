@@ -88,26 +88,32 @@ public class ModelViewer {
         // translation changes
         else if (source == m_btnIncrX) {
           // TODO increase x
+          m_currentModel.increaseX();
           m_canvas.repaint();
           System.out.println("IncrX");
         } else if (source == m_btnDecrX) {
           // TODO decrease x
+          m_currentModel.decreaseX();
           m_canvas.repaint();
           System.out.println("DecrX");
         } else if (source == m_btnIncrY) {
           // TODO increase y
+          m_currentModel.increaseY();
           m_canvas.repaint();
           System.out.println("IncrY");
         } else if (source == m_btnDecrY) {
           // TODO decrease y
+          m_currentModel.decreaseY();
           m_canvas.repaint();
           System.out.println("DecrY");
         } else if (source == m_btnIncrZ) {
           // TODO increase z
+          m_currentModel.increaseZ();
           m_canvas.repaint();
           System.out.println("IncrZ");
         } else if (source == m_btnDecrZ) {
           // TODO decrease z
+          m_currentModel.decreaseZ();
           m_canvas.repaint();
           System.out.println("DecrZ");
         }
