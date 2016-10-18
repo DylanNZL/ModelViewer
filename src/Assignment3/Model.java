@@ -18,9 +18,9 @@ class Model {
   private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
   // Offsets
-  private int offsetX = 0;
-  private int offsetY = 0;
-  private int offsetZ = 0;
+  private float offsetX = 0;
+  private float offsetY = 0;
+  private float offsetZ = 0;
 
   // the largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
@@ -120,7 +120,7 @@ class Model {
     for (Triangle Triangle : Triangles) {
       Triangle.calculateNormal();
     }
-
+    newTransforms();
     return true;
   }
 
@@ -132,39 +132,63 @@ class Model {
     return m_maxSize;
   }
 
-  public ArrayList<Triangle> getTriangles() {
-    return Triangles;
-    // TODO: Change to transformed once that is implemented
-    //return Transformed;
+  public void newTransforms() {
+    Transformed.clear();
+    for (Triangle triangle : Triangles) {
+      Triangle add = new Triangle(
+              new Vector4f(triangle.v[0].x + offsetX, triangle.v[0].y + offsetY, triangle.v[0].z + offsetZ, triangle.v[0].w),
+              new Vector4f(triangle.v[1].x + offsetX, triangle.v[1].y + offsetY, triangle.v[1].z + offsetZ, triangle.v[1].w),
+              new Vector4f(triangle.v[2].x + offsetX, triangle.v[2].y + offsetY, triangle.v[2].z + offsetZ, triangle.v[2].w)
+      );
+      add.calculateNormal();
+      Transformed.add(add);
+    }
   }
+
+  public ArrayList<Triangle> getTriangles() {
+    //return Triangles;
+    // TODO: Change to transformed once that is implemented
+    return Transformed;
+  }
+
+  /**
+   * Offset Value increase/Decrease functions
+   * Increment & Decrement in values of .5 as the scale defaults to 50 which means this will move it 25 pixels
+   */
 
   // Increase the X offset of the vertices in the triangle(s) by 10
   public void increaseX() {
-    offsetX += 10;
+    offsetX += 0.5;
+    newTransforms();
   }
 
   // Increase the Y offset of the vertices in the triangle(s) by 10
   public void increaseY() {
-    offsetY += 10;
+    offsetY += 0.5;
+    newTransforms();
   }
 
   // Increase the Z offset of the vertices in the triangle(s) by 10
   public void increaseZ() {
-    offsetZ += 10;
+    offsetZ += 0.5;
+    newTransforms();
   }
 
   // Decrease the X offset of the vertices in the triangle(s) by 10
   public void decreaseX () {
-    offsetX -= 10;
+    offsetX -= 0.5;
+    newTransforms();
   }
 
   // Decrease the Y offset of the vertices in the triangle(s) by 10
   public void decreaseY () {
-    offsetY -= 10;
+    offsetY -= 0.5;
+    newTransforms();
   }
 
   // Decrease the Z offset of the vertices in the triangle(s) by 10
   public void decreaseZ() {
-    offsetZ -= 10;
+    offsetZ -= 0.5;
+    newTransforms();
   }
 }
