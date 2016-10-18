@@ -137,7 +137,7 @@ class Model {
     return m_maxSize;
   }
 
-  public void newTransforms() {
+  void newTransforms() {
     Transformed.clear();
     for (Triangle triangle : Triangles) {
       Triangle add = new Triangle(
@@ -145,12 +145,25 @@ class Model {
               new Vector4f(triangle.v[1].x + offsetX, triangle.v[1].y + offsetY, triangle.v[1].z + offsetZ, triangle.v[1].w),
               new Vector4f(triangle.v[2].x + offsetX, triangle.v[2].y + offsetY, triangle.v[2].z + offsetZ, triangle.v[2].w)
       );
+
+      if (rotateX != 0) {
+        // pass triangle to rotateX function
+      }
+
+      if (rotateY != 0) {
+        // pass triangle to rotateY function
+      }
+
+      if (rotateZ != 0) {
+        // pass triangle to rotateZ function
+      }
+
       add.calculateNormal();
       Transformed.add(add);
     }
   }
 
-  public ArrayList<Triangle> getTriangles() {
+  ArrayList<Triangle> getTriangles() {
     //return Triangles;
     // TODO: Change to transformed once that is implemented
     return Transformed;
@@ -158,21 +171,41 @@ class Model {
 
   /**
    * Rotate updaters
-   *
    */
 
-  public void setRotateX(int mRotateX) {
+  void setRotateX(int mRotateX) {
     rotateX = mRotateX;
   }
 
-  public void setRotateY(int mRotateY) {
+  void setRotateY(int mRotateY) {
     rotateY = mRotateY;
   }
 
-  public void setRotateZ(int mRotateZ) {
+  void setRotateZ(int mRotateZ) {
     rotateZ = mRotateZ;
   }
 
+  /**
+   * Rotate Transformers
+   */
+
+  // Rotate the triangle along the X axis
+  Triangle rotateXTransform(Triangle triangle) {
+
+    return triangle;
+  }
+
+  // Rotate the triangle along the Y axis
+  Triangle rotateYTransform(Triangle triangle) {
+
+    return triangle;
+  }
+
+  // Rotate the triangle along the Z axis
+  Triangle rotateZTransform(Triangle triangle) {
+
+    return triangle;
+  }
 
   /**
    * Offset Value increase/Decrease functions
@@ -180,37 +213,37 @@ class Model {
    */
 
   // Increase the X offset of the vertices in the triangle(s) by 10
-  public void increaseX() {
+  void increaseX() {
     offsetX += 0.5;
     newTransforms();
   }
 
   // Increase the Y offset of the vertices in the triangle(s) by 10
-  public void increaseY() {
+  void increaseY() {
     offsetY += 0.5;
     newTransforms();
   }
 
   // Increase the Z offset of the vertices in the triangle(s) by 10
-  public void increaseZ() {
+  void increaseZ() {
     offsetZ += 0.5;
     newTransforms();
   }
 
   // Decrease the X offset of the vertices in the triangle(s) by 10
-  public void decreaseX () {
+  void decreaseX () {
     offsetX -= 0.5;
     newTransforms();
   }
 
   // Decrease the Y offset of the vertices in the triangle(s) by 10
-  public void decreaseY () {
+  void decreaseY () {
     offsetY -= 0.5;
     newTransforms();
   }
 
   // Decrease the Z offset of the vertices in the triangle(s) by 10
-  public void decreaseZ() {
+  void decreaseZ() {
     offsetZ -= 0.5;
     newTransforms();
   }

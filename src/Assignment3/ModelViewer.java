@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-
 public class ModelViewer {
 
   private static final int INIT_WIDTH = 1024;
