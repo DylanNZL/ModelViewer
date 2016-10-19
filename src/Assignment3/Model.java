@@ -148,22 +148,27 @@ class Model {
     Transformed.clear();
     for (Triangle triangle : Triangles) {
       Triangle add = new Triangle(
-              new Vector4f(triangle.v[0].x + offsetX, triangle.v[0].y + offsetY, triangle.v[0].z + offsetZ, triangle.v[0].w),
-              new Vector4f(triangle.v[1].x + offsetX, triangle.v[1].y + offsetY, triangle.v[1].z + offsetZ, triangle.v[1].w),
-              new Vector4f(triangle.v[2].x + offsetX, triangle.v[2].y + offsetY, triangle.v[2].z + offsetZ, triangle.v[2].w)
+              new Vector4f(triangle.v[0]),
+              new Vector4f(triangle.v[1]),
+              new Vector4f(triangle.v[2])
       );
       Transformed.add(add);
     }
 
-    // Create new matrix for transforms
-    matrix = new Matrix4f();
+    // Create new matrix for offsets
+    matrix = Matrix4f.createTranslateInstance(offsetX, offsetY, offsetZ);
+    applyTransform(matrix);
 
+    // Create new matrix for Rotations
+    matrix = new Matrix4f();
     if (rotateX != 0) { rotateX(rotateX); }
     if (rotateY != 0) { rotateY(rotateY); }
     if (rotateZ != 0) { rotateZ(rotateZ); }
-
     applyTransform(matrix);
-    scaleTransfrom();
+
+    // Create a scale transformation
+    Matrix4f scaleMat = Matrix4f.createScaleInstance(scale, scale, scale);
+    applyTransform(scaleMat);
 
     Transformed.forEach(Triangle::calculateNormal);
     Collections.sort(Transformed);
@@ -193,11 +198,6 @@ class Model {
     } else {
       scale = (width / 2) / m_maxSize;
     }
-  }
-
-  void scaleTransfrom() {
-    Matrix4f scaleMat = Matrix4f.createScaleInstance(scale, scale, scale);
-    applyTransform(scaleMat);
   }
 
   /**
