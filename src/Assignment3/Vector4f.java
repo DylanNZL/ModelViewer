@@ -1,3 +1,6 @@
+/**
+ * Taken from the phong illumination example
+ */
 package Assignment3;
 
 /**
