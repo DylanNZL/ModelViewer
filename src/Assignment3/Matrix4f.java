@@ -1,7 +1,5 @@
 package Assignment3;
 
-import render3d.Vector4f;
-
 /**
  * A 4x4 single-precision floating point matrix in column-major layout.
  */
@@ -87,14 +85,14 @@ public class Matrix4f {
    * @param camUp     The up direction vector.
    * @return The view transformation matrix.
    */
-  public static Matrix4f lookAt(final render3d.Vector3f camPos, final render3d.Vector3f targetPos,
-                                final render3d.Vector3f camUp) {
+  public static Matrix4f lookAt(final Vector3f camPos, final Vector3f targetPos,
+                                final Vector3f camUp) {
     // Calculate the direction vector from the cam to the point of interest.
-    final render3d.Vector3f forward = targetPos.minus(camPos).normalize();
+    final Vector3f forward = targetPos.minus(camPos).normalize();
     // Calculate the orthogonal right vector.
-    final render3d.Vector3f right = render3d.Vector3f.crossProduct(forward, camUp);
+    final Vector3f right = Vector3f.crossProduct(forward, camUp);
     // Now calculate an up vector that is orthogonal to both forward and right.
-    final render3d.Vector3f up = render3d.Vector3f.crossProduct(right, forward);
+    final Vector3f up = Vector3f.crossProduct(right, forward);
 
     // Construct the view matrix.
     final Matrix4f rotation = new Matrix4f(new float[]{
@@ -162,13 +160,13 @@ public class Matrix4f {
 
   /**
    * Multiplies this this by rhs and returns the result in a new
-   * {@link render3d.Vector4f}.
+   * {@link Vector4f}.
    *
    * @param rhs The column vector to multiply by.
    * @return The result in a new vector.
    */
-  public render3d.Vector4f multiply(final render3d.Vector4f rhs) {
-    return multiply(rhs, new render3d.Vector4f());
+  public Vector4f multiply(final Vector4f rhs) {
+    return multiply(rhs, new Vector4f());
   }
 
   /**
@@ -178,7 +176,7 @@ public class Matrix4f {
    * @param out The result vector.
    * @return The vector given in out.
    */
-  public render3d.Vector4f multiply(final render3d.Vector4f rhs, final Vector4f out) {
+  public Vector4f multiply(final Vector4f rhs, final Vector4f out) {
     out.x = m[0] * rhs.x + m[4] * rhs.y + m[8] * rhs.z + m[12] * rhs.w;
     out.y = m[1] * rhs.x + m[5] * rhs.y + m[9] * rhs.z + m[13] * rhs.w;
     out.z = m[2] * rhs.x + m[6] * rhs.y + m[10] * rhs.z + m[14] * rhs.w;

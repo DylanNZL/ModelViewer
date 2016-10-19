@@ -3,6 +3,7 @@ package Assignment3;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -26,6 +27,8 @@ class Model {
   private int rotateX = 0;
   private int rotateY = 0;
   private int rotateZ = 0;
+
+  private Matrix4f matrix;
 
   // the largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
@@ -134,11 +137,11 @@ class Model {
    * Returns the largest absolute coordinate value of the original,
    * untransformed model data.
    */
-  public float getMaxSize() {
+  float getMaxSize() {
     return m_maxSize;
   }
 
-  void newTransforms() {
+  private void newTransforms() {
     Transformed.clear();
     for (Triangle triangle : Triangles) {
       Triangle add = new Triangle(
@@ -146,25 +149,37 @@ class Model {
               new Vector4f(triangle.v[1].x + offsetX, triangle.v[1].y + offsetY, triangle.v[1].z + offsetZ, triangle.v[1].w),
               new Vector4f(triangle.v[2].x + offsetX, triangle.v[2].y + offsetY, triangle.v[2].z + offsetZ, triangle.v[2].w)
       );
-
-      if (rotateX != 0) {
-        // pass triangle to rotateX function
-        triangle = rotateXTransform(triangle);
-      }
-
-      if (rotateY != 0) {
-        // pass triangle to rotateY function
-        triangle = rotateYTransform(triangle);
-      }
-
-      if (rotateZ != 0) {
-        // pass triangle to rotateZ function
-        triangle = rotateZTransform(triangle);
-      }
-
-      add.calculateNormal();
       Transformed.add(add);
     }
+
+    // Create new matrix for transforms
+    matrix = new Matrix4f();
+
+    if (rotateX != 0) { rotateX(rotateX); }
+    if (rotateY != 0) { rotateY(rotateY); }
+    if (rotateZ != 0) { rotateZ(rotateZ); }
+
+    applyTransform(matrix);
+    updateNormals();
+    sortTriangles();
+  }
+
+   private void rotateX (float rotate) {
+    // Rotate around y axis.
+    final Matrix4f xMat = Matrix4f.createRotateXInstance((float) Math.toRadians(rotate));
+    matrix = matrix.multiply(xMat);
+  }
+
+  private void rotateY (float rotate) {
+    // Rotate around y axis.
+    final Matrix4f yMat = Matrix4f.createRotateYInstance((float) Math.toRadians(rotate));
+    matrix = matrix.multiply(yMat);
+  }
+
+  private void rotateZ (float rotate) {
+    // Rotate around z axis
+    Matrix4f zMat = Matrix4f.createRotateZInstance((float) Math.toRadians(rotate));
+    matrix = matrix.multiply(zMat);
   }
 
   /**
@@ -180,40 +195,24 @@ class Model {
    */
 
   void setRotateX(int mRotateX) {
-    // TODO : rotate the triangle
-    rotateX = mRotateX;
+    if (rotateX != mRotateX) {
+      rotateX = mRotateX;
+      newTransforms();
+    }
   }
 
   void setRotateY(int mRotateY) {
-    // TODO : rotate the triangle
-    rotateY = mRotateY;
+    if (rotateY != mRotateY) {
+      rotateY = mRotateY;
+      newTransforms();
+    }
   }
 
   void setRotateZ(int mRotateZ) {
-    // TODO : rotate the triangle
-    rotateZ = mRotateZ;
-  }
-
-  /**
-   * Rotate Transformers
-   */
-
-  // Rotate the triangle along the X axis
-  Triangle rotateXTransform(Triangle triangle) {
-
-    return triangle;
-  }
-
-  // Rotate the triangle along the Y axis
-  Triangle rotateYTransform(Triangle triangle) {
-
-    return triangle;
-  }
-
-  // Rotate the triangle along the Z axis
-  Triangle rotateZTransform(Triangle triangle) {
-
-    return triangle;
+    if (rotateZ != mRotateZ) {
+      rotateZ = mRotateZ;
+      newTransforms();
+    }
   }
 
   /**
@@ -256,4 +255,30 @@ class Model {
     offsetZ -= 0.5;
     newTransforms();
   }
+
+  /**
+   * Applies the given transform to the model's vertex positions.
+   */
+  private void applyTransform(final Matrix4f transform) {
+    for (final Triangle tIn : Transformed) {
+      for (int vertex = 0; vertex < tIn.v.length; ++vertex) {
+        transform.multiply(tIn.v[vertex], tIn.v[vertex]);
+      }
+    }
+  }
+
+  /**
+   * Recalculates all surface normals from their vertices.
+   */
+  private void updateNormals() {
+    Transformed.forEach(Triangle::calculateNormal);
+  }
+
+  /**
+   * Sorts the triangles of the model in back-to-front order.
+   */
+  private void sortTriangles() {
+    Collections.sort(Transformed);
+  }
+
 }

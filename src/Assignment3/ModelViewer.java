@@ -53,17 +53,14 @@ public class ModelViewer {
           // TODO rotate x
           m_currentModel.setRotateX(m_sliderRotateX.getValue());
           m_canvas.repaint();
-          //System.out.println("RotateX " + m_sliderRotateX.getValue());
         } else if (source == m_sliderRotateY) {
-          // TODO rotate x
+          // TODO rotate y
           m_currentModel.setRotateY(m_sliderRotateY.getValue());
           m_canvas.repaint();
-          //System.out.println("RotateY " + m_sliderRotateY.getValue());
         } else if (source == m_sliderRotateZ) {
           // TODO rotate z
-          m_currentModel.setRotateZ(m_sliderRotateY.getValue());
+          m_currentModel.setRotateZ(m_sliderRotateZ.getValue());
           m_canvas.repaint();
-          //System.out.println("RotateZ " + m_sliderRotateZ.getValue());
         }
       }
     }

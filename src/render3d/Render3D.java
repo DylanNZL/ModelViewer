@@ -1,11 +1,9 @@
 package render3d;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Render3D {
   private final Canvas canvas;
@@ -77,9 +75,13 @@ public class Render3D {
     }
 
     // Create the projection and view matrices.
-    final Matrix4f proj = enablePerspective
-        ? Matrix4f.createPerspective(200)
-        : new Matrix4f();
+    final Matrix4f proj;
+    if (enablePerspective) {
+      proj = Matrix4f.createPerspective(200);
+    }
+    else {
+      proj = new Matrix4f();
+    }
     final Matrix4f view = Matrix4f.lookAt(
         cameraPos, new Vector3f(0, 0, 0), new Vector3f(0, 1, 0));
 

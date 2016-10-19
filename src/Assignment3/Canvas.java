@@ -26,19 +26,6 @@ class Canvas extends JPanel {
     setOpaque(true);
   }
 
-  private void setScale() {
-    if (getHeight() < getWidth()) {
-      scale = (getHeight() / 2) / m_model.getMaxSize();
-    } else {
-      scale = (getWidth() / 2) / m_model.getMaxSize();
-    }
-    System.out.println(scale);
-  }
-
-  void setFirstToTrue() {
-    first = true;
-  }
-
   void setModel(final Model model) {
     m_model = model;
   }
@@ -51,6 +38,15 @@ class Canvas extends JPanel {
     scale = scale * 0.9f;
   }
 
+  // Sets the scale to a value that will show the image inside the screen
+  private void setScale() {
+    if (getHeight() < getWidth()) {
+      scale = (getHeight() / 2) / m_model.getMaxSize();
+    } else {
+      scale = (getWidth() / 2) / m_model.getMaxSize();
+    }
+  }
+
   void updateWireframe(boolean update) {
     wireFrame = update;
   }
@@ -61,6 +57,10 @@ class Canvas extends JPanel {
 
   void updateBackFace(boolean update) {
     backFace = update;
+  }
+
+  void setFirstToTrue() {
+    first = true;
   }
 
   @Override
