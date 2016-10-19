@@ -341,14 +341,6 @@ public class ModelViewer {
     return null;
   }
 
-  float returnSmallestScreenDimension() {
-    if (m_canvas.getHeight() < m_canvas.getWidth()) {
-      return m_canvas.getHeight();
-    } else {
-      return m_canvas.getWidth();
-    }
-  }
-
   public static void main(String[] args) {
     System.out.println("*****************************************");
     System.out.println("* 159.235 Assignment 3, Semester 2 2016 *");
