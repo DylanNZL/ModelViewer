@@ -28,6 +28,9 @@ class Model {
   private int rotateY = 0;
   private int rotateZ = 0;
 
+  // Scale
+  private float scale = 50.f;
+
   private Matrix4f matrix;
 
   // the largest absolute coordinate value of the untransformed model data
@@ -141,7 +144,7 @@ class Model {
     return m_maxSize;
   }
 
-  private void newTransforms() {
+  void newTransforms() {
     Transformed.clear();
     for (Triangle triangle : Triangles) {
       Triangle add = new Triangle(
@@ -160,6 +163,8 @@ class Model {
     if (rotateZ != 0) { rotateZ(rotateZ); }
 
     applyTransform(matrix);
+    scaleTransfrom();
+
     Transformed.forEach(Triangle::calculateNormal);
     Collections.sort(Transformed);
   }
@@ -180,6 +185,19 @@ class Model {
     // Rotate around z axis
     Matrix4f zMat = Matrix4f.createRotateZInstance((float) Math.toRadians(rotate));
     matrix = matrix.multiply(zMat);
+  }
+
+  void setScale(float height, float width) {
+    if (height < width) {
+      scale = (height / 2) / m_maxSize;
+    } else {
+      scale = (width / 2) / m_maxSize;
+    }
+  }
+
+  void scaleTransfrom() {
+    Matrix4f scaleMat = Matrix4f.createScaleInstance(scale, scale, scale);
+    applyTransform(scaleMat);
   }
 
   /**
@@ -213,6 +231,20 @@ class Model {
       rotateZ = mRotateZ;
       newTransforms();
     }
+  }
+
+  /**
+   * Scale Increment/Decrement
+   */
+
+  void incrementScale() {
+    scale = scale * 1.1f;
+    newTransforms();
+  }
+
+  void decrementScale() {
+    scale = scale * 0.9f;
+    newTransforms();
   }
 
   /**

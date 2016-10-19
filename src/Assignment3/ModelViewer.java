@@ -71,10 +71,10 @@ public class ModelViewer {
       if (m_currentModel != null) {
         // scale changes
         if (source == m_btnScaleUp) {
-          m_canvas.incrementScale();
+          m_currentModel.incrementScale();
           m_canvas.repaint();
         } else if (source == m_btnScaleDown) {
-          m_canvas.decrementScale();
+          m_currentModel.decrementScale();
           m_canvas.repaint();
         }
         // translation changes
@@ -332,7 +332,6 @@ public class ModelViewer {
 
       // try to load the model from the selected file
       final Model model = Model.loadModel(file);
-
       if (model != null) {
         // Set the first boolean to true, which will dynamically scale the mode up/down to make it fit comfortably in the window.
         m_canvas.setFirstToTrue();
@@ -340,6 +339,14 @@ public class ModelViewer {
       return model;
     }
     return null;
+  }
+
+  float returnSmallestScreenDimension() {
+    if (m_canvas.getHeight() < m_canvas.getWidth()) {
+      return m_canvas.getHeight();
+    } else {
+      return m_canvas.getWidth();
+    }
   }
 
   public static void main(String[] args) {

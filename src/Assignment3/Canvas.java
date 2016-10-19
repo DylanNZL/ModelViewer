@@ -14,7 +14,6 @@ class Canvas extends JPanel {
   private Model m_model;
 
   // Controller variables, changed by the GUI
-  private float scale = 50.f;
   private boolean wireFrame = true;
   private boolean solid = true;
   private boolean backFace = true;
@@ -30,21 +29,10 @@ class Canvas extends JPanel {
     m_model = model;
   }
 
-  void incrementScale() {
-    scale = scale * 1.1f;
-  }
-
-  void decrementScale() {
-    scale = scale * 0.9f;
-  }
-
   // Sets the scale to a value that will show the image inside the screen
   private void setScale() {
-    if (getHeight() < getWidth()) {
-      scale = (getHeight() / 2) / m_model.getMaxSize();
-    } else {
-      scale = (getWidth() / 2) / m_model.getMaxSize();
-    }
+    m_model.setScale(getHeight(), getWidth());
+    m_model.newTransforms();
   }
 
   void updateWireframe(boolean update) {
@@ -88,12 +76,12 @@ class Canvas extends JPanel {
     for (final Triangle triangle : triangles) {
       if (backFace && triangle.normal.z <= 0.f) continue;
 
-      poly.xpoints[0] = (int) (triangle.v[0].x * scale);
-      poly.xpoints[1] = (int) (triangle.v[1].x * scale);
-      poly.xpoints[2] = (int) (triangle.v[2].x * scale);
-      poly.ypoints[0] = (int) (triangle.v[0].y * scale);
-      poly.ypoints[1] = (int) (triangle.v[1].y * scale);
-      poly.ypoints[2] = (int) (triangle.v[2].y * scale);
+      poly.xpoints[0] = (int) (triangle.v[0].x);
+      poly.xpoints[1] = (int) (triangle.v[1].x);
+      poly.xpoints[2] = (int) (triangle.v[2].x);
+      poly.ypoints[0] = (int) (triangle.v[0].y);
+      poly.ypoints[1] = (int) (triangle.v[1].y);
+      poly.ypoints[2] = (int) (triangle.v[2].y);
 
       // if render solids is true, fill the polygon
       if (solid) {
