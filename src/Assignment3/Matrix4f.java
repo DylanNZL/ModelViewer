@@ -77,54 +77,6 @@ public class Matrix4f {
     return mat;
   }
 
-  /**
-   * Returns the view matrix for the given camera in the scene.
-   *
-   * @param camPos    The camera position in world coordinates.
-   * @param targetPos The point of interest toward which the camera faces.
-   * @param camUp     The up direction vector.
-   * @return The view transformation matrix.
-   */
-  public static Matrix4f lookAt(final Vector3f camPos, final Vector3f targetPos,
-                                final Vector3f camUp) {
-    // Calculate the direction vector from the cam to the point of interest.
-    final Vector3f forward = targetPos.minus(camPos).normalize();
-    // Calculate the orthogonal right vector.
-    final Vector3f right = Vector3f.crossProduct(forward, camUp);
-    // Now calculate an up vector that is orthogonal to both forward and right.
-    final Vector3f up = Vector3f.crossProduct(right, forward);
-
-    // Construct the view matrix.
-    final Matrix4f rotation = new Matrix4f(new float[]{
-        right.x, up.x, -forward.x, 0,
-        right.y, up.y, -forward.y, 0,
-        right.z, up.z, -forward.z, 0,
-        0, 0, 0, 1
-    });
-    final Matrix4f translation = new Matrix4f(new float[]{
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        -camPos.x, -camPos.y, -camPos.z, 1
-    });
-
-    return rotation.multiply(translation);
-  }
-
-  /**
-   * Returns the perspective projection matrix.
-   *
-   * @param dist The distance from the centre of projection (at the origin)
-   *             to the projection plane. Must be > 0.
-   */
-  public static Matrix4f createPerspective(final float dist) {
-    if (dist <= 0.f) return new Matrix4f();
-
-    final Matrix4f p = new Matrix4f();
-    p.m[11] = 1.f / -dist;
-    p.m[15] = 0.f;
-    return p;
-  }
 
   /**
    * Multiplies this by rhs and returns the result in a new matrix instance.

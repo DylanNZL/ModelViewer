@@ -50,15 +50,12 @@ public class ModelViewer {
       final JSlider source = (JSlider) e.getSource();
       if (m_currentModel != null) {
         if (source == m_sliderRotateX) {
-          // TODO rotate x
           m_currentModel.setRotateX(m_sliderRotateX.getValue());
           m_canvas.repaint();
         } else if (source == m_sliderRotateY) {
-          // TODO rotate y
           m_currentModel.setRotateY(m_sliderRotateY.getValue());
           m_canvas.repaint();
         } else if (source == m_sliderRotateZ) {
-          // TODO rotate z
           m_currentModel.setRotateZ(m_sliderRotateZ.getValue());
           m_canvas.repaint();
         }
@@ -94,15 +91,11 @@ public class ModelViewer {
           m_currentModel.decreaseY();
           m_canvas.repaint();
         } else if (source == m_btnIncrZ) {
-          // TODO increase z
           m_currentModel.increaseZ();
           m_canvas.repaint();
-          System.out.println("IncrZ");
         } else if (source == m_btnDecrZ) {
-          // TODO decrease z
           m_currentModel.decreaseZ();
           m_canvas.repaint();
-          System.out.println("DecrZ");
         }
       }
     }
@@ -341,9 +334,7 @@ public class ModelViewer {
       final Model model = Model.loadModel(file);
 
       if (model != null) {
-        // initialise the scale value so that the model fits into the
-        // render window
-        // TODO scale
+        // Set the first boolean to true, which will dynamically scale the mode up/down to make it fit comfortably in the window.
         m_canvas.setFirstToTrue();
       }
       return model;

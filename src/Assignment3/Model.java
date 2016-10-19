@@ -160,8 +160,8 @@ class Model {
     if (rotateZ != 0) { rotateZ(rotateZ); }
 
     applyTransform(matrix);
-    updateNormals();
-    sortTriangles();
+    Transformed.forEach(Triangle::calculateNormal);
+    Collections.sort(Transformed);
   }
 
    private void rotateX (float rotate) {
@@ -257,7 +257,7 @@ class Model {
   }
 
   /**
-   * Applies the given transform to the model's vertex positions.
+   * Apply matrix transformations to the Triangles vectors.
    */
   private void applyTransform(final Matrix4f transform) {
     for (final Triangle tIn : Transformed) {
@@ -266,19 +266,4 @@ class Model {
       }
     }
   }
-
-  /**
-   * Recalculates all surface normals from their vertices.
-   */
-  private void updateNormals() {
-    Transformed.forEach(Triangle::calculateNormal);
-  }
-
-  /**
-   * Sorts the triangles of the model in back-to-front order.
-   */
-  private void sortTriangles() {
-    Collections.sort(Transformed);
-  }
-
 }
