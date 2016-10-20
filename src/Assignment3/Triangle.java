@@ -1,7 +1,7 @@
 package Assignment3;
 
 /**
- * Taken from the phong illumination example
+ * Taken from the Phong illumination example
  */
 
 /**
@@ -14,11 +14,11 @@ class Triangle implements Comparable<Triangle> {
   // NOTE: These members are used for efficiency reasons, but this is not
   // thread-safe. Need to use thread-local temporaries if updateNormal() is to
   // be called concurrently.
-  private static Vector3f tmpV1 = new Vector3f();
-  private static Vector3f tmpV2 = new Vector3f();
-  private static Vector3f tmpV3 = new Vector3f();
-  private static Vector3f vec1 = new Vector3f();
-  private static Vector3f vec2 = new Vector3f();
+  private static final Vector3f tmpV1 = new Vector3f();
+  private static final Vector3f tmpV2 = new Vector3f();
+  private static final Vector3f tmpV3 = new Vector3f();
+  private static final Vector3f vec1 = new Vector3f();
+  private static final Vector3f vec2 = new Vector3f();
 
   Triangle(Vector4f vertex1, Vector4f vertex2, Vector4f vertex3) {
     v = new Vector4f[3];
@@ -54,7 +54,7 @@ class Triangle implements Comparable<Triangle> {
   /**
    * Returns the average z-value for all vertices of this polygon.
    */
-  float getAverageDepth() {
+  private float getAverageDepth() {
     return ((v[0].z + v[1].z + v[2].z) / 3.f);
   }
 

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+@SuppressWarnings("WeakerAccess")
 public class ModelViewer {
 
   private static final int INIT_WIDTH = 1024;
@@ -27,12 +28,12 @@ public class ModelViewer {
 
   private JButton m_btnScaleUp;
   private JButton m_btnScaleDown;
-  private JButton m_btnIncrX;
-  private JButton m_btnDecrX;
-  private JButton m_btnIncrY;
-  private JButton m_btnDecrY;
-  private JButton m_btnIncrZ;
-  private JButton m_btnDecrZ;
+  private JButton m_btnIncreaseX;
+  private JButton m_btnDecreaseX;
+  private JButton m_btnIncreaseY;
+  private JButton m_btnDecreaseY;
+  private JButton m_btnIncreaseZ;
+  private JButton m_btnDecreaseZ;
 
   private JCheckBox m_chkRenderWireframe;
   private JCheckBox m_chkRenderSolid;
@@ -48,7 +49,7 @@ public class ModelViewer {
    * GUI Slider buttons to rotate the model in the X/Y/Z axis
    * Sent to functions in the model class that take the direct value of the slider and convert it to radians.
    */
-  private ChangeListener m_sliderChangeListener = new ChangeListener() {
+  private final ChangeListener m_sliderChangeListener = new ChangeListener() {
 
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -74,7 +75,7 @@ public class ModelViewer {
    * Increase/Decrease X/Y/Z values: Send to functions that translate the model 0.5f in that particular axis
    * NB: Z increase & decrease is hard to see unless model is rotated
    */
-  private ActionListener m_btnActionListener = new ActionListener() {
+  private final ActionListener m_btnActionListener = new ActionListener() {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -89,22 +90,22 @@ public class ModelViewer {
           m_canvas.repaint();
         }
         // translation changes
-        else if (source == m_btnIncrX) {
+        else if (source == m_btnIncreaseX) {
           m_currentModel.increaseX();
           m_canvas.repaint();
-        } else if (source == m_btnDecrX) {
+        } else if (source == m_btnDecreaseX) {
           m_currentModel.decreaseX();
           m_canvas.repaint();
-        } else if (source == m_btnIncrY) {
+        } else if (source == m_btnIncreaseY) {
           m_currentModel.increaseY();
           m_canvas.repaint();
-        } else if (source == m_btnDecrY) {
+        } else if (source == m_btnDecreaseY) {
           m_currentModel.decreaseY();
           m_canvas.repaint();
-        } else if (source == m_btnIncrZ) {
+        } else if (source == m_btnIncreaseZ) {
           m_currentModel.increaseZ();
           m_canvas.repaint();
-        } else if (source == m_btnDecrZ) {
+        } else if (source == m_btnDecreaseZ) {
           m_currentModel.decreaseZ();
           m_canvas.repaint();
         }
@@ -116,7 +117,7 @@ public class ModelViewer {
    * GUI Check Boxes to decide how to draw the image
    * They send through the isSelected property of each check box so that the booleans are always up to date.
    */
-  private ActionListener m_chkActionListener = new ActionListener() {
+  private final ActionListener m_chkActionListener = new ActionListener() {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -138,7 +139,7 @@ public class ModelViewer {
    * GUI Menu.
    * Responsible for selecting the model to open.
    */
-  private ActionListener m_menuActionListener = new ActionListener() {
+  private final ActionListener m_menuActionListener = new ActionListener() {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -160,10 +161,10 @@ public class ModelViewer {
   /**
    * Factory method for {@link ModelViewer}.
    */
-  private static ModelViewer create() {
+  private static void create() {
     final ModelViewer viewer = new ModelViewer();
     SwingUtilities.invokeLater(viewer::createGui);
-    return viewer;
+    //return viewer;
   }
 
   /**
@@ -276,39 +277,39 @@ public class ModelViewer {
     gbc.insets.right = gbcDefault.insets.right;
     toolbar.add(m_btnScaleUp, gbc);
 
-    m_btnIncrX = new JButton("+ x");
-    m_btnDecrX = new JButton("- x");
-    m_btnIncrY = new JButton("+ y");
-    m_btnDecrY = new JButton("- y");
-    m_btnIncrZ = new JButton("+ z");
-    m_btnDecrZ = new JButton("- z");
-    m_btnIncrX.addActionListener(m_btnActionListener);
-    m_btnDecrX.addActionListener(m_btnActionListener);
-    m_btnIncrY.addActionListener(m_btnActionListener);
-    m_btnDecrY.addActionListener(m_btnActionListener);
-    m_btnIncrZ.addActionListener(m_btnActionListener);
-    m_btnDecrZ.addActionListener(m_btnActionListener);
+    m_btnIncreaseX = new JButton("+ x");
+    m_btnDecreaseX = new JButton("- x");
+    m_btnIncreaseY = new JButton("+ y");
+    m_btnDecreaseY = new JButton("- y");
+    m_btnIncreaseZ = new JButton("+ z");
+    m_btnDecreaseZ = new JButton("- z");
+    m_btnIncreaseX.addActionListener(m_btnActionListener);
+    m_btnDecreaseX.addActionListener(m_btnActionListener);
+    m_btnIncreaseY.addActionListener(m_btnActionListener);
+    m_btnDecreaseY.addActionListener(m_btnActionListener);
+    m_btnIncreaseZ.addActionListener(m_btnActionListener);
+    m_btnDecreaseZ.addActionListener(m_btnActionListener);
 
     gbc = (GridBagConstraints) gbcTwoCol.clone();
-    toolbar.add(m_btnDecrX, gbc);
+    toolbar.add(m_btnDecreaseX, gbc);
     gbc.gridx = 1;
     gbc.insets.left = gbc.insets.right;
     gbc.insets.right = gbcDefault.insets.right;
-    toolbar.add(m_btnIncrX, gbc);
+    toolbar.add(m_btnIncreaseX, gbc);
 
     gbc = (GridBagConstraints) gbcTwoCol.clone();
-    toolbar.add(m_btnDecrY, gbc);
+    toolbar.add(m_btnDecreaseY, gbc);
     gbc.gridx = 1;
     gbc.insets.left = gbc.insets.right;
     gbc.insets.right = gbcDefault.insets.right;
-    toolbar.add(m_btnIncrY, gbc);
+    toolbar.add(m_btnIncreaseY, gbc);
 
     gbc = (GridBagConstraints) gbcTwoCol.clone();
-    toolbar.add(m_btnDecrZ, gbc);
+    toolbar.add(m_btnDecreaseZ, gbc);
     gbc.gridx = 1;
     gbc.insets.left = gbc.insets.right;
     gbc.insets.right = gbcDefault.insets.right;
-    toolbar.add(m_btnIncrZ, gbc);
+    toolbar.add(m_btnIncreaseZ, gbc);
 
     // add check boxes
     gbc = gbcDefault;

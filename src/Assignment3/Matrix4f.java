@@ -1,7 +1,7 @@
 package Assignment3;
 
 /**
-  Taken from the phong illumination example
+ * Taken from the Phong illumination example
  */
 
 /**
@@ -90,7 +90,7 @@ class Matrix4f {
    * @param out The output matrix.
    * @return The matrix given in out.
    */
-  Matrix4f multiply(final Matrix4f rhs, final Matrix4f out) {
+  private Matrix4f multiply(final Matrix4f rhs, final Matrix4f out) {
     int outIdx;
     for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
@@ -110,15 +110,12 @@ class Matrix4f {
    *
    * @param rhs The column vector to multiply by.
    * @param out The result vector.
-   * @return The vector given in out.
    */
-  Vector4f multiply(final Vector4f rhs, final Vector4f out) {
+  void multiply(final Vector4f rhs, final Vector4f out) {
     out.x = m[0] * rhs.x + m[4] * rhs.y + m[8] * rhs.z + m[12] * rhs.w;
     out.y = m[1] * rhs.x + m[5] * rhs.y + m[9] * rhs.z + m[13] * rhs.w;
     out.z = m[2] * rhs.x + m[6] * rhs.y + m[10] * rhs.z + m[14] * rhs.w;
     out.w = m[3] * rhs.x + m[7] * rhs.y + m[11] * rhs.z + m[15] * rhs.w;
-
-    return out;
   }
 
   @Override

@@ -13,11 +13,11 @@ import java.util.Scanner;
 class Model {
 
   // ArrayList of Vectors, used to load triangles in
-  private ArrayList<Vector4f> Vectors = new ArrayList<>();
+  private final ArrayList<Vector4f> Vectors = new ArrayList<>();
 
   // ArrayLists of Triangles. The original ones are not altered, but the transformed are.
-  private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
-  private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
+  private final ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
+  private final ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
   // Offsets
   private float offsetX = 0;
@@ -177,7 +177,7 @@ class Model {
 
   /**
    * Rotate Transformers
-   * These instantate new instances of the createRotate* of Matrix4F and then multiply them with the current matrix
+   * These instantiate new instances of the createRotate* of Matrix4F and then multiply them with the current matrix
    * This means applyTransforms can be called once on all three rotations
    */
 
@@ -215,7 +215,7 @@ class Model {
   /**
    * Rotate updaters
    * Set the new value of that rotate axis if it is not equal to the current value (may cause too much redraws if it was)
-   *  afterwards call new transforms to apply the new rotation tranformation
+   *  afterwards call new transforms to apply the new rotation transformation
    */
 
   void setRotateX(int mRotateX) {
@@ -306,7 +306,7 @@ class Model {
   }
 
   /**
-   * Return the transformed Arraylist of the triangles that have been read in.
+   * Return the transformed ArrayList of the triangles that have been read in.
    */
   ArrayList<Triangle> getTriangles() {
     return Transformed;
