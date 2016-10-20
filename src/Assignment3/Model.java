@@ -15,7 +15,7 @@ class Model {
   // ArrayList of Vectors, used to load triangles in
   private ArrayList<Vector3f> Vectors = new ArrayList<>();
 
-  // ArrayLists of Triangles. The Original ones are not altered, but the transformed are.
+  // ArrayLists of Triangles. The original ones are not altered, but the transformed are.
   private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
   private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
@@ -142,10 +142,11 @@ class Model {
 
   /**
    * New transforms is responsible for cloning the original model each time it is called.
-   * It then applies the Translation, Rotation and Scale matrix math to the clone.
-   * It is called in various places, so is package-private.
+   * It creates a translation Matrix4f instance and then applies it.
+   * Followed by a new matrix that is used to do the rotation along the three axis, which is applied before
+   *  creating a new matrix that is used to scale up/down the model to the current scale value.
+   * It is called in multiple classes, so is package-private.
    */
-
   void newTransforms() {
     Transformed.clear();
     for (Triangle triangle : Triangles) {
@@ -178,8 +179,8 @@ class Model {
 
   /**
    * Rotate Transformers
-   * These apply matrix transforms to the current matrix, so that when it is applied
-   *    The rotations are applied
+   * These instantate new instances of the createRotate* of Matrix4F and then multiply them with the current matrix
+   * This means applyTransforms can be called once on all three rotations
    */
 
    private void rotateX (float rotate) {
@@ -242,6 +243,7 @@ class Model {
   /**
    * Scale Increment/Decrement
    * Increases by a scale of 1.1 and decreases by 0.9
+   * Calls newTransforms to update the model afterwards
    */
 
   void incrementScale() {
@@ -258,6 +260,7 @@ class Model {
    * Offset Value Increase/Decrease functions
    * Increment & Decrement in values of .5 as the scale is usually quite big so will show a large amount of movement
    *  even though it is a small amount
+   * Calls newTransforms to update the model afterwards
    */
 
   void increaseX() {
@@ -291,13 +294,14 @@ class Model {
   }
 
   /**
-   * Applys the matrix transformations to the Triangles vectors.
+   * applyTransform applies the transformations that are sent to it
+   * It utilises the multiply vector4f to transform the vector of each triangle in the Transformed ArrayList
+   * It sends as input the same vector to both sides of the multiply function, to ensure previous changes are not altered
    */
-
   private void applyTransform(final Matrix4f transform) {
     for (final Triangle t : Transformed) {
-      for (int vertex = 0; vertex < t.v.length; ++vertex) {
-        transform.multiply(t.v[vertex], t.v[vertex]);
+      for (int i = 0; i < t.v.length; ++i) {
+        transform.multiply(t.v[i], t.v[i]);
       }
     }
   }
@@ -305,7 +309,6 @@ class Model {
   /**
    * Return the transformed Arraylist of the triangles that have been read in.
    */
-
   ArrayList<Triangle> getTriangles() {
     return Transformed;
   }

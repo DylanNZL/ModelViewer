@@ -48,7 +48,6 @@ public class ModelViewer {
    * GUI Slider buttons to rotate the model in the X/Y/Z axis
    * Sent to functions in the model class that take the direct value of the slider and convert it to radians.
    */
-
   private ChangeListener m_sliderChangeListener = new ChangeListener() {
 
     @Override
@@ -75,7 +74,6 @@ public class ModelViewer {
    * Increase/Decrease X/Y/Z values: Send to functions that translate the model 0.5f in that particular axis
    * NB: Z increase & decrease is hard to see unless model is rotated
    */
-
   private ActionListener m_btnActionListener = new ActionListener() {
 
     @Override
@@ -118,7 +116,6 @@ public class ModelViewer {
    * GUI Check Boxes to decide how to draw the image
    * They send through the isSelected property of each check box so that the booleans are always up to date.
    */
-
   private ActionListener m_chkActionListener = new ActionListener() {
 
     @Override
@@ -141,7 +138,6 @@ public class ModelViewer {
    * GUI Menu.
    * Responsible for selecting the model to open.
    */
-
   private ActionListener m_menuActionListener = new ActionListener() {
 
     @Override
@@ -364,6 +360,10 @@ public class ModelViewer {
     return null;
   }
 
+  /**
+   * Main function, called on start up
+   * Prints out my information and then creates the GUI and the rest of the application
+   */
   public static void main(String[] args) {
     System.out.println("*****************************************");
     System.out.println("* 159.235 Assignment 3, Semester 2 2016 *");

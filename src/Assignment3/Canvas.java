@@ -11,6 +11,7 @@ class Canvas extends JPanel {
 
   private static final long serialVersionUID = 1L;
 
+  // Current model
   private Model m_model;
 
   // Controller variables, changed by the GUI Buttons
@@ -25,35 +26,59 @@ class Canvas extends JPanel {
     setOpaque(true);
   }
 
+  /**
+   * Sets the canvas's model to that of the current instantiation
+   * @param model sent from modelViewer on load
+   */
   void setModel(final Model model) {
     m_model = model;
   }
 
-  // Sets the scale to a value that will show the image inside the screen
+  /**
+   * Pass through the height and width of the current window to the setScale function in model
+   * This will resize the scale value to something that will make the model nicely sized in the window
+   * It will the call newTransforms to update the transformed triangles to the new scale.
+   */
   private void setScale() {
     m_model.setScale(getHeight(), getWidth());
     m_model.newTransforms();
   }
 
-  // Update the draw wireframe boolean, passed through the value of the isSelected method, so it's always up to date
+  /**
+   * The following three update functions set their respective boolean to the value
+   *    sent from the isSelected method of the corresponding checkbox in the GUI
+   * This ensures the value is always up to date and requires less processing than simply swapping the boolean
+   */
+
   void updateWireframe(boolean update) {
     wireFrame = update;
   }
 
-  // Update the draw solid boolean, passed through the value of the isSelected method, so it's always up to date
   void updateSolid(boolean update) {
     solid = update;
   }
 
-  // Update the cull backfaces boolean, passed through the value of the isSelected method, so it's always up to date
   void updateBackFace(boolean update) {
     backFace = update;
   }
 
-  // Sets the first boolean to true, only done when a model is first loaded in
+  /**
+   * Sets the "first" boolean to true
+   * This boolean is used to determine if this is the first time drawing the model or not
+   * If it is true it will resize the scale of the model for best fit in the window
+   */
   void setFirstToTrue() {
     first = true;
   }
+
+  /**
+   * Paint Component is responsible for the drawing of the model on the screen
+   * It grabs the transformed triangle ArrayList via the m_model instance
+   * Then draws it on screen based on the different booleans that dictate how it is displayed
+   * Backface is a boolean to check if the user wants to cull the backfaces of the model or not
+   * Solid is a boolean to check if the user wants to have the model filled in (with Color.Blue)
+   * Wireframe is a boolean to check if the user wants to have the wireframe (outlines) of the model drawn (with Color.Black)
+   */
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -112,7 +137,7 @@ class Canvas extends JPanel {
         g2.draw(poly);
       }
     }
-    // Displose of Graphics2D instance
+    // Dispose of Graphics2D instance
     g2.dispose();
   }
 }
