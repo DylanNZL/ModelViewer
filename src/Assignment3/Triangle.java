@@ -1,14 +1,15 @@
+package Assignment3;
+
 /**
  * Taken from the phong illumination example
  */
-package Assignment3;
 
 /**
  * A polygon with three vertices, a.k.a. a triangle.
  */
-public class Triangle implements Comparable<Triangle> {
-  public final Vector4f[] v; // Vertices
-  public final Vector3f normal;
+class Triangle implements Comparable<Triangle> {
+  final Vector4f[] v; // Vertices
+  final Vector3f normal;
 
   // NOTE: These members are used for efficiency reasons, but this is not
   // thread-safe. Need to use thread-local temporaries if updateNormal() is to
@@ -19,7 +20,7 @@ public class Triangle implements Comparable<Triangle> {
   private static Vector3f vec1 = new Vector3f();
   private static Vector3f vec2 = new Vector3f();
 
-  public Triangle(Vector4f vertex1, Vector4f vertex2, Vector4f vertex3) {
+  Triangle(Vector4f vertex1, Vector4f vertex2, Vector4f vertex3) {
     v = new Vector4f[3];
     v[0] = vertex1;
     v[1] = vertex2;
@@ -33,7 +34,7 @@ public class Triangle implements Comparable<Triangle> {
    * <p>
    * <b>NOTE that this implementation is not thread-safe.</b>
    */
-  public void calculateNormal() {
+  void calculateNormal() {
     tmpV1.x = v[0].x;
     tmpV1.y = v[0].y;
     tmpV1.z = v[0].z;
@@ -53,7 +54,7 @@ public class Triangle implements Comparable<Triangle> {
   /**
    * Returns the average z-value for all vertices of this polygon.
    */
-  public float getAverageDepth() {
+  float getAverageDepth() {
     return ((v[0].z + v[1].z + v[2].z) / 3.f);
   }
 

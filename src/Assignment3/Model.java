@@ -12,9 +12,10 @@ import java.util.Scanner;
  */
 class Model {
 
-  private int m_numVertices;
-  private int m_numTriangles;
+  // ArrayList of Vectors, used to load triangles in
   private ArrayList<Vector3f> Vectors = new ArrayList<>();
+
+  // ArrayLists of Triangles. The Original ones are not altered, but the transformed are.
   private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
   private ArrayList<Triangle> Transformed = new ArrayList<>(); // Transformed
 
@@ -31,9 +32,10 @@ class Model {
   // Scale
   private float scale = 50.f;
 
+  // Matrix variable. Enables to be used by the multiple rotate functions.
   private Matrix4f matrix;
 
-  // the largest absolute coordinate value of the untransformed model data
+  // tTe largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
 
   private Model() {
@@ -62,9 +64,11 @@ class Model {
    * @param file The file to load.
    * @return True on success, false otherwise.
    */
-  protected boolean loadModelFromFile(final File file) {
+  private boolean loadModelFromFile(final File file) {
     m_maxSize = 0.f;
 
+    int m_numVertices;
+    int m_numTriangles;
     try (final Scanner scanner = new Scanner(file)) {
       // the first line specifies the vertex count
       m_numVertices = scanner.nextInt();
@@ -137,12 +141,10 @@ class Model {
   }
 
   /**
-   * Returns the largest absolute coordinate value of the original,
-   * untransformed model data.
+   * New transforms is responsible for cloning the original model each time it is called.
+   * It then applies the Translation, Rotation and Scale matrix math to the clone.
+   * It is called in various places, so is package-private.
    */
-  float getMaxSize() {
-    return m_maxSize;
-  }
 
   void newTransforms() {
     Transformed.clear();
@@ -174,6 +176,12 @@ class Model {
     Collections.sort(Transformed);
   }
 
+  /**
+   * Rotate Transformers
+   * These apply matrix transforms to the current matrix, so that when it is applied
+   *    The rotations are applied
+   */
+
    private void rotateX (float rotate) {
     // Rotate around y axis.
     final Matrix4f xMat = Matrix4f.createRotateXInstance((float) Math.toRadians(rotate));
@@ -192,6 +200,11 @@ class Model {
     matrix = matrix.multiply(zMat);
   }
 
+  /**
+   * Sets the scale variable to the best fit for the window.
+   * It is sent height & width from the canvas class.
+   */
+
   void setScale(float height, float width) {
     if (height < width) {
       scale = (height / 2) / m_maxSize;
@@ -201,15 +214,8 @@ class Model {
   }
 
   /**
-   * Return the transformed Arraylist of the triangles that have been read in.
-   */
-
-  ArrayList<Triangle> getTriangles() {
-    return Transformed;
-  }
-
-  /**
    * Rotate updaters
+   * Set the new value of that rotate axis, then call new transforms to apply the rotation
    */
 
   void setRotateX(int mRotateX) {
@@ -235,6 +241,7 @@ class Model {
 
   /**
    * Scale Increment/Decrement
+   * Increases by a scale of 1.1 and decreases by 0.9
    */
 
   void incrementScale() {
@@ -249,53 +256,57 @@ class Model {
 
   /**
    * Offset Value Increase/Decrease functions
-   * Increment & Decrement in values of .5 as the scale defaults to is usually quite big
+   * Increment & Decrement in values of .5 as the scale is usually quite big so will show a large amount of movement
+   *  even though it is a small amount
    */
 
-  // Increase the X offset of the vertices in the triangle(s) by 10
   void increaseX() {
     offsetX += 0.5;
     newTransforms();
   }
 
-  // Increase the Y offset of the vertices in the triangle(s) by 10
   void increaseY() {
     offsetY += 0.5;
     newTransforms();
   }
 
-  // Increase the Z offset of the vertices in the triangle(s) by 10
   void increaseZ() {
     offsetZ += 0.5;
     newTransforms();
   }
 
-  // Decrease the X offset of the vertices in the triangle(s) by 10
   void decreaseX () {
     offsetX -= 0.5;
     newTransforms();
   }
 
-  // Decrease the Y offset of the vertices in the triangle(s) by 10
   void decreaseY () {
     offsetY -= 0.5;
     newTransforms();
   }
 
-  // Decrease the Z offset of the vertices in the triangle(s) by 10
   void decreaseZ() {
     offsetZ -= 0.5;
     newTransforms();
   }
 
   /**
-   * Apply matrix transformations to the Triangles vectors.
+   * Applys the matrix transformations to the Triangles vectors.
    */
+
   private void applyTransform(final Matrix4f transform) {
-    for (final Triangle tIn : Transformed) {
-      for (int vertex = 0; vertex < tIn.v.length; ++vertex) {
-        transform.multiply(tIn.v[vertex], tIn.v[vertex]);
+    for (final Triangle t : Transformed) {
+      for (int vertex = 0; vertex < t.v.length; ++vertex) {
+        transform.multiply(t.v[vertex], t.v[vertex]);
       }
     }
+  }
+
+  /**
+   * Return the transformed Arraylist of the triangles that have been read in.
+   */
+
+  ArrayList<Triangle> getTriangles() {
+    return Transformed;
   }
 }

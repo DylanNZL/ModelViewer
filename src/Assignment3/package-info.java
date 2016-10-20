@@ -1,6 +1,6 @@
 /**
  *  Created by Dylan on 15-Oct-16.
- *  Written in Java 1.8.040 using IntelliJ 2016.4
+ *  Written in Java 1.8.040 using IntelliJ 2.5 2016.
  *  Assignment 3 for 159.235 Graphical Programming
  * ---------------------------------------------------------------------------------------------------------------------
  *  Write a 3D model viewer with the following features in Java:

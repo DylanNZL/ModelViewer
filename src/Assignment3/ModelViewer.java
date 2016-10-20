@@ -43,6 +43,12 @@ public class ModelViewer {
   private Model m_currentModel;
 
   //////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * GUI Slider buttons to rotate the model in the X/Y/Z axis
+   * Sent to functions in the model class that take the direct value of the slider and convert it to radians.
+   */
+
   private ChangeListener m_sliderChangeListener = new ChangeListener() {
 
     @Override
@@ -62,6 +68,13 @@ public class ModelViewer {
       }
     }
   };
+
+  /**
+   * GUI buttons to:
+   * Scale the model up/Down: Sends to functions that increase the scale by a factor of 1.1 or 0.9
+   * Increase/Decrease X/Y/Z values: Send to functions that translate the model 0.5f in that particular axis
+   * NB: Z increase & decrease is hard to see unless model is rotated
+   */
 
   private ActionListener m_btnActionListener = new ActionListener() {
 
@@ -101,6 +114,11 @@ public class ModelViewer {
     }
   };
 
+  /**
+   * GUI Check Boxes to decide how to draw the image
+   * They send through the isSelected property of each check box so that the booleans are always up to date.
+   */
+
   private ActionListener m_chkActionListener = new ActionListener() {
 
     @Override
@@ -118,6 +136,11 @@ public class ModelViewer {
       }
     }
   };
+
+  /**
+   * GUI Menu.
+   * Responsible for selecting the model to open.
+   */
 
   private ActionListener m_menuActionListener = new ActionListener() {
 
