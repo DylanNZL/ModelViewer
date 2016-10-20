@@ -13,7 +13,7 @@ import java.util.Scanner;
 class Model {
 
   // ArrayList of Vectors, used to load triangles in
-  private ArrayList<Vector3f> Vectors = new ArrayList<>();
+  private ArrayList<Vector4f> Vectors = new ArrayList<>();
 
   // ArrayLists of Triangles. The original ones are not altered, but the transformed are.
   private ArrayList<Triangle> Triangles = new ArrayList<>(); // Originals
@@ -32,10 +32,10 @@ class Model {
   // Scale
   private float scale = 50.f;
 
-  // Matrix variable. Enables to be used by the multiple rotate functions.
+  // Matrix variable. Enables the matrix to be combined with the multiple rotate functions.
   private Matrix4f matrix;
 
-  // tTe largest absolute coordinate value of the untransformed model data
+  // The largest absolute coordinate value of the untransformed model data
   private float m_maxSize;
 
   private Model() {
@@ -85,7 +85,7 @@ class Model {
         z = scanner.nextFloat();
 
         // store the vertex data
-        Vectors.add(new Vector3f(x, y, z));
+        Vectors.add(new Vector4f(x, y, z));
 
         // determine the max value in any dimension in the model file
         m_maxSize = Math.max(m_maxSize, Math.abs(x));
@@ -110,9 +110,9 @@ class Model {
 
         // store the triangle data in a suitable data structure
         Triangles.add(new Triangle (
-                new Vector4f(Vectors.get(v1)),
-                new Vector4f(Vectors.get(v2)),
-                new Vector4f(Vectors.get(v3))
+                Vectors.get(v1),
+                Vectors.get(v2),
+                Vectors.get(v3)
         ));
       }
     } catch (FileNotFoundException e) {
@@ -132,11 +132,9 @@ class Model {
     System.out.println("Number of vertices in model: " + m_numVertices);
     System.out.println("Number of triangles in model: " + m_numTriangles);
 
-    for (Triangle Triangle : Triangles) {
-      Triangle.calculateNormal();
-    }
-
+    // Create New transforms based on the current values (if the values are default it won't do anything)
     newTransforms();
+
     return true;
   }
 

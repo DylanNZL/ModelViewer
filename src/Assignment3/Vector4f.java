@@ -14,10 +14,17 @@ class Vector4f {
   float w;
 
   /**
-   * Initialises the vector to (0,0,0,0).
+   * Constructor for Vector4f
+   * @param mX
+   * @param mY
+   * @param mZ
+   * NB: w is assumed to be 1.f (not really used in this program).
    */
-  Vector4f() {
-    x = y = z = w = 0.f;
+  Vector4f(float mX, float mY, float mZ) {
+    x = mX;
+    y = mY;
+    z = mZ;
+    w = 1.f;
   }
 
   /**
@@ -32,15 +39,4 @@ class Vector4f {
     w = v.w;
   }
 
-  /**
-   * Constructor for converting a Vector3f to a Vector4f
-   * @param v is a Vector3f, so is missing a w value
-   *          This is aassumed to be 1.f and assigned to the new Vector4f.
-   */
-  Vector4f(final Vector3f v) {
-    x = v.x;
-    y = v.y;
-    z = v.z;
-    w = 1.f;
-  }
 }
