@@ -216,7 +216,8 @@ class Model {
 
   /**
    * Rotate updaters
-   * Set the new value of that rotate axis, then call new transforms to apply the rotation
+   * Set the new value of that rotate axis if it is not equal to the current value (may cause too much redraws if it was)
+   *  afterwards call new transforms to apply the new rotation tranformation
    */
 
   void setRotateX(int mRotateX) {
